@@ -1,6 +1,10 @@
 awesome-switcher
 ================
 
+##Changes from Original
+* removed icons (will make a toggle later)
+* changed to use colors from theme, used default names
+
 This plugin integrates the familiar application switcher functionality in the
 [awesome window manager](https://github.com/awesomeWM/awesome).
 
