@@ -18,6 +18,7 @@ local tonumber = tonumber
 local debug = debug
 local pairs = pairs
 local unpack = unpack or table.unpack
+local beautiful = require'beautiful' 
 
 local surface = cairo.ImageSurface(cairo.Format.RGB24,20,20)
 local cr = cairo.Context(surface)
@@ -28,12 +29,12 @@ local _M = {}
 
 _M.settings = {
 	preview_box = true,
-	preview_box_bg = "#ddddddaa",
-	preview_box_border = "#22222200",
+	preview_box_bg = beautiful.bg_normal,
+	preview_box_border = beautiful.border_color_active,
 	preview_box_fps = 30,
 	preview_box_delay = 150,
-	preview_box_title_font = {"sans","italic","normal"},
-	preview_box_title_font_size_factor = 0.8,
+   preview_box_title_font = {"JetBrains Mono" ,"italic","normal"},
+	preview_box_title_font_size_factor = 1,
 	preview_box_title_color = {0,0,0,1},
 
 	client_opacity = false,
@@ -164,9 +165,9 @@ end
 
 function _M.createPreviewText(client)
 	if client.class then
-		return " - " .. client.class
+		return client.class
 	else
-		return " - " .. client.name
+		return client.name
 	end
 end
 
@@ -350,7 +351,7 @@ function _M.preview()
 				textWidth = cr:text_extents(text).width
 				textHeight = cr:text_extents(text).height
 
-				local titleboxWidth = textWidth + iconboxWidth
+				local titleboxWidth = textWidth
 				local titleboxHeight = textboxHeight
 
 				-- Draw icons
@@ -359,15 +360,15 @@ function _M.preview()
 				sx = iconboxWidth / icon.width
 				sy = iconboxHeight  / icon.height
 
-				cr:translate(tx, ty)
-				cr:scale(sx, sy)
-				cr:set_source_surface(icon, 0, 0)
-				cr:paint()
-				cr:scale(1/sx, 1/sy)
-				cr:translate(-tx, -ty)
+				--cr:translate(tx, ty)
+				--cr:scale(sx, sy)
+				--cr:set_source_surface(icon, 0, 0)
+				--cr:paint()
+				--cr:scale(1/sx, 1/sy)
+				--cr:translate(-tx, -ty)
 
 				-- Draw titles
-				tx = tx + iconboxWidth
+				--tx = tx + iconboxWidth
 				ty = h + (textboxHeight + textHeight) / 2
 
 				cr:set_source_rgba(unpack(_M.settings.preview_box_title_color))
